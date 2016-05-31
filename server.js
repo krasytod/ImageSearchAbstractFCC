@@ -9,23 +9,11 @@ var session = require('express-session');
 var app = express();
 require('dotenv').load();
 require('./app/config/passport')(passport);
-
+//GET https://www.googleapis.com/customsearch/v1?q=grumpy+cat&cx=014623854566396067634%3As9nuuvh_xxs&fileType=jpg&key={YOUR_API_KEY}
 mongoose.connect(process.env.MONGO_URI);
 
-app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
-app.use('/public', express.static(process.cwd() + '/public'));
-app.use('/common', express.static(process.cwd() + '/app/common'));
 
-app.use(session({
-	secret: 'secretClementine',
-	resave: false,
-	saveUninitialized: true
-}));
 
-app.use(passport.initialize());
-app.use(passport.session());
-
-routes(app, passport);
 
 var port = process.env.PORT || 8080;
 app.listen(port,  function () {
